@@ -15,7 +15,7 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->string('name');
             $table->string('email')->unique();
-            $table->integer('average_score');
+            $table->integer('average_score')->default(0);
             $table->timestamps();
         });
     }

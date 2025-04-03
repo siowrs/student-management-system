@@ -5,31 +5,49 @@ namespace App\Http\Controllers;
 use App\Models\Student;
 use App\Http\Requests\StoreStudentRequest;
 use App\Http\Requests\UpdateStudentRequest;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Validation\Rule;
+use Inertia\Inertia;
+use Inertia\Response;
 
 class StudentController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(): Response
     {
-        //
+        $students = Student::all();
+
+        return Inertia::render('student/index', [
+            'students' => $students
+        ]);
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(): Response
     {
-        //
+        return inertia('student/create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreStudentRequest $request)
+    public function store(StoreStudentRequest $request): RedirectResponse
     {
-        //
+        $validated = $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'email', 'unique:students']
+        ]);
+
+        Student::create([
+            'name' => $validated['name'],
+            'email' => $validated['email']
+        ]);
+
+        return to_route('student.index');
     }
 
     /**
@@ -45,7 +63,8 @@ class StudentController extends Controller
      */
     public function edit(Student $student)
     {
-        //
+
+        return inertia('student/edit', ['student' => $student]);
     }
 
     /**
@@ -53,7 +72,21 @@ class StudentController extends Controller
      */
     public function update(UpdateStudentRequest $request, Student $student)
     {
-        //
+        $validated = $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => [
+                'required',
+                'email',
+                Rule::unique('users')->ignore($student)
+            ]
+        ]);
+
+        $student->update([
+            'name' => $validated['name'],
+            'email' => $validated['email']
+        ]);
+
+        return to_route('student.index');
     }
 
     /**
@@ -61,6 +94,8 @@ class StudentController extends Controller
      */
     public function destroy(Student $student)
     {
-        //
+        $student->delete();
+
+        return to_route('student.index');
     }
 }
