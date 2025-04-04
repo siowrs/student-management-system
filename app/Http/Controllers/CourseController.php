@@ -5,23 +5,26 @@ namespace App\Http\Controllers;
 use App\Models\Course;
 use App\Http\Requests\StoreCourseRequest;
 use App\Http\Requests\UpdateCourseRequest;
+use Inertia\Response;
 
 class CourseController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(): Response
     {
-        //
+        $courses = Course::all();
+
+        return inertia('course/index', ['courses' => $courses]);
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(): Response
     {
-        //
+        return inertia('course/create');
     }
 
     /**
@@ -29,7 +32,16 @@ class CourseController extends Controller
      */
     public function store(StoreCourseRequest $request)
     {
-        //
+
+        $validated = $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+        ]);
+
+        Course::create([
+            'name' => $validated['name']
+        ]);
+
+        return to_route('course.index');
     }
 
     /**
@@ -45,7 +57,7 @@ class CourseController extends Controller
      */
     public function edit(Course $course)
     {
-        //
+        return inertia('course/edit', ['course' => $course]);
     }
 
     /**
@@ -53,7 +65,15 @@ class CourseController extends Controller
      */
     public function update(UpdateCourseRequest $request, Course $course)
     {
-        //
+        $validated = $request->validate([
+            'name' => ['required', 'string', 'max:255']
+        ]);
+
+        $course->update([
+            'name' => $validated['name']
+        ]);
+
+        return to_route('course.index');
     }
 
     /**
@@ -61,6 +81,8 @@ class CourseController extends Controller
      */
     public function destroy(Course $course)
     {
-        //
+        $course->delete();
+
+        return to_route('course.index');
     }
 }
