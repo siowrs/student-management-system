@@ -22,8 +22,8 @@ class Student extends Model
         return $this->belongsToMany(Course::class);
     }
 
-    public function examResults(): HasMany
+    public function results(): HasMany
     {
-        return $this->hasMany(ExamResult::class);
+        return $this->hasMany(Result::class);
     }
 }

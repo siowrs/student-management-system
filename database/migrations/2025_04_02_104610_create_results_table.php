@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('exam_results', function (Blueprint $table) {
+        Schema::create('results', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->foreignUuid('student_id')->references('id')->on('students')->cascadeOnDelete();
             $table->foreignUuid('course_id')->references('id')->on('courses')->cascadeOnDelete();
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('exam_results');
+        Schema::dropIfExists('results');
     }
 };

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Course;
 use App\Http\Requests\StoreCourseRequest;
 use App\Http\Requests\UpdateCourseRequest;
+use Illuminate\Http\RedirectResponse;
 use Inertia\Response;
 
 class CourseController extends Controller
@@ -30,7 +31,7 @@ class CourseController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreCourseRequest $request)
+    public function store(StoreCourseRequest $request): RedirectResponse
     {
 
         $validated = $request->validate([
@@ -55,7 +56,7 @@ class CourseController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Course $course)
+    public function edit(Course $course): Response
     {
         return inertia('course/edit', ['course' => $course]);
     }
@@ -63,7 +64,7 @@ class CourseController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateCourseRequest $request, Course $course)
+    public function update(UpdateCourseRequest $request, Course $course): RedirectResponse
     {
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:255']
@@ -79,7 +80,7 @@ class CourseController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Course $course)
+    public function destroy(Course $course): RedirectResponse
     {
         $course->delete();
 

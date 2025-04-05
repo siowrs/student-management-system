@@ -20,8 +20,8 @@ class Course extends Model
         return $this->hasMany(Course::class);
     }
 
-    public function examResults(): HasMany
+    public function results(): HasMany
     {
-        return $this->hasMany(ExamResult::class);
+        return $this->hasMany(Result::class);
     }
 }

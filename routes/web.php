@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\CourseController;
-use App\Http\Controllers\ExamResultController;
+use App\Http\Controllers\ResultController;
 use App\Http\Controllers\StudentController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -28,13 +28,13 @@ Route::prefix('course')->name('course.')->group(function () {
     Route::delete('/delete/{course}', [CourseController::class, 'destroy'])->name('delete');
 });
 
-Route::prefix('exam')->name('exam.')->group(function () {
-    Route::get('/', [ExamResultController::class, 'index'])->name('index');
-    Route::get('/create', [ExamResultController::class, 'create'])->name('create');
-    Route::post('/create', [ExamResultController::class, 'store'])->name('store');
-    Route::get('/edit/{exam}', [ExamResultController::class, 'edit'])->name('edit');
-    Route::patch('/edit/{exam}', [ExamResultController::class, 'update'])->name('update');
-    Route::delete('/delete/{exam}', [ExamResultController::class, 'destroy'])->name('delete');
+Route::prefix('result')->name('result.')->group(function () {
+    Route::get('/', [ResultController::class, 'index'])->name('index');
+    Route::get('/create', [ResultController::class, 'create'])->name('create');
+    Route::post('/create', [ResultController::class, 'store'])->name('store');
+    Route::get('/edit/{result}', [ResultController::class, 'edit'])->name('edit');
+    Route::patch('/edit/{result}', [ResultController::class, 'update'])->name('update');
+    Route::delete('/delete/{result}', [ResultController::class, 'destroy'])->name('delete');
 });
 
 Route::middleware(['auth', 'verified'])->group(function () {
