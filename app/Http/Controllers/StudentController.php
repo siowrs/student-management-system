@@ -56,7 +56,7 @@ class StudentController extends Controller
     public function show(Student $student): Response
     {
 
-        return inertia('student/show', ['student' => $student->load(['results'])]);
+        return inertia('student/show', ['student' => $student->load(['results.course:id,name'])]);
     }
 
     /**

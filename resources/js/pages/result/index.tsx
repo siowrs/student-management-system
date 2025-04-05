@@ -13,6 +13,8 @@ export type ResultType = {
         name: string;
         id: string;
     };
+    created_at: string;
+    updated_at: string;
 };
 
 export default function Results({ results }: { results: ResultType[] }) {

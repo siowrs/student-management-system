@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use DateTimeInterface;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -25,5 +26,11 @@ class Student extends Model
     public function results(): HasMany
     {
         return $this->hasMany(Result::class);
+    }
+
+    protected function serializeDate(DateTimeInterface $date): string
+    {
+
+        return $date->format('d M Y');
     }
 }
