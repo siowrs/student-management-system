@@ -1,19 +1,37 @@
 import { Button } from '@/components/ui/button';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Link, router } from '@inertiajs/react';
+import { CSVLink } from 'react-csv';
 
 export type CourseType = {
     id: string;
     name: string;
+    average_score: string;
 };
 
 export default function Courses({ courses }: { courses: CourseType[] }) {
+    const keysToExport: (keyof CourseType)[] = ['name', 'average_score'];
+
+    const headers = keysToExport.map((key) => ({
+        label: key.charAt(0).toUpperCase() + key.slice(1),
+        key,
+    }));
+
+    const data = courses.map((c) => Object.fromEntries(keysToExport.map((key) => [key, c[key]])));
+
     return (
         <>
+            <Button asChild>
+                <CSVLink data={data} headers={headers}>
+                    Download result CSV
+                </CSVLink>
+            </Button>
+
             <Table>
                 <TableHeader>
                     <TableRow>
                         <TableHead className="">Name</TableHead>
+                        <TableHead className="">Average Score</TableHead>
                         <TableHead className="">Action</TableHead>
                     </TableRow>
                 </TableHeader>
@@ -21,6 +39,8 @@ export default function Courses({ courses }: { courses: CourseType[] }) {
                     {courses.map((c) => (
                         <TableRow key={c.id}>
                             <TableCell className="font-medium">{c.name}</TableCell>
+                            <TableCell className="">{c.average_score}</TableCell>
+
                             <TableCell>
                                 <div className="space-x-2">
                                     <Button asChild>

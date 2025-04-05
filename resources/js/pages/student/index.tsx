@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui/button';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Link, router } from '@inertiajs/react';
-
+import { CSVLink } from 'react-csv';
 export type StudentType = {
     id: string;
     name: string;
@@ -10,8 +10,23 @@ export type StudentType = {
 };
 
 export default function Students({ students }: { students: StudentType[] }) {
+    const keysToExport: (keyof StudentType)[] = ['name', 'email'];
+
+    const headers = keysToExport.map((key) => ({
+        label: key.charAt(0).toUpperCase() + key.slice(1),
+        key,
+    }));
+
+    const data = students.map((s) => Object.fromEntries(keysToExport.map((key) => [key, s[key]])));
+
     return (
         <>
+            <Button asChild>
+                <CSVLink data={data} headers={headers}>
+                    Download student CSV
+                </CSVLink>
+            </Button>
+
             <Table>
                 <TableHeader>
                     <TableRow>
@@ -40,7 +55,6 @@ export default function Students({ students }: { students: StudentType[] }) {
                     ))}
                 </TableBody>
             </Table>
-
             <Button asChild>
                 <Link
                     href={route('student.create')}
