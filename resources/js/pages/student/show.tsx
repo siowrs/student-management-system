@@ -1,4 +1,7 @@
+import Heading from '@/components/heading';
+import HeadingSmall from '@/components/heading-small';
 import { Button } from '@/components/ui/button';
+import { Card, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Link, router } from '@inertiajs/react';
 import { StudentType } from '.';
@@ -19,7 +22,21 @@ export default function Student({
 
     return (
         <>
-            <Table>
+            <Heading title={student.name} />
+            <Card>
+                <CardHeader>
+                    <CardDescription>Email</CardDescription>
+                    <CardTitle>{student.email}</CardTitle>
+                </CardHeader>
+            </Card>
+            <Card>
+                <CardHeader>
+                    <CardDescription>Average Score</CardDescription>
+                    <CardTitle>{student.average_score}</CardTitle>
+                </CardHeader>
+            </Card>
+            <HeadingSmall title="Results" />
+            <Table className="">
                 <TableHeader>
                     <TableRow>
                         <TableHead className="">Course</TableHead>

@@ -67,12 +67,12 @@ export default function ResultForm({
 
                 <Popover open={courseSelectOpen} onOpenChange={setCourseSelectOpen}>
                     <PopoverTrigger asChild>
-                        <Button variant="outline" role="combobox" aria-expanded={courseSelectOpen} className="w-[200px] justify-between">
+                        <Button variant="outline" role="combobox" aria-expanded={courseSelectOpen} className="w-full justify-between">
                             {courseValue ? courses.find((c) => c.name === courseValue)?.name : 'Select course...'}
                             <ChevronsUpDown className="opacity-50" />
                         </Button>
                     </PopoverTrigger>
-                    <PopoverContent className="w-[200px] p-0">
+                    <PopoverContent className="w-[var(--radix-popover-trigger-width)] p-0">
                         <Command>
                             <CommandInput placeholder="Search course..." />
                             <CommandList>
@@ -101,12 +101,12 @@ export default function ResultForm({
 
                 <Popover open={studentSelectOpen} onOpenChange={setStudentSelectOpen}>
                     <PopoverTrigger asChild>
-                        <Button variant="outline" role="combobox" aria-expanded={studentSelectOpen} className="w-[200px] justify-between">
+                        <Button variant="outline" role="combobox" aria-expanded={studentSelectOpen} className="w-full justify-between">
                             {studentValue ? students.find((s) => s.name === studentValue)?.name : 'Select student...'}
                             <ChevronsUpDown className="opacity-50" />
                         </Button>
                     </PopoverTrigger>
-                    <PopoverContent className="w-[200px] p-0">
+                    <PopoverContent className="w-[var(--radix-popover-trigger-width)] p-0">
                         <Command>
                             <CommandInput placeholder="Search student..." />
                             <CommandList>
@@ -133,10 +133,17 @@ export default function ResultForm({
                 </Popover>
                 <InputError message={errors.student} />
 
-                <Button type="submit" className="mt-4 w-full" tabIndex={4} disabled={processing}>
-                    {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
-                    {action == 'create' ? 'Create' : 'Update'} Result
-                </Button>
+                <div className="mt-4 flex flex-col space-y-2">
+                    <Button type="submit" className="flex-auto" tabIndex={4} disabled={processing}>
+                        {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
+                        {action == 'create' ? 'Create' : 'Update'} Result
+                    </Button>
+
+                    <Button variant="outline" onClick={() => window.history.back()}>
+                        {/* <Link href=''></Link>
+                        Back */}
+                    </Button>
+                </div>
             </div>
         </form>
     );

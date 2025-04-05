@@ -1,12 +1,12 @@
 import StudentForm from '@/components/form/student-form';
-import AuthLayout from '@/layouts/auth-layout';
+import FormLayout from '@/layouts/form-layout';
 import { Head } from '@inertiajs/react';
 
 export default function CreateStudent() {
     return (
-        <AuthLayout title="Log in to your account" description="Enter your email and password below to log in">
+        <FormLayout title="Create student" description="Enter student name and email below.">
             <Head title="Create Student" />
             <StudentForm action="create" submitRoute={route('student.store')} />
-        </AuthLayout>
+        </FormLayout>
     );
 }
