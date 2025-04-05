@@ -53,9 +53,10 @@ class StudentController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Student $student)
+    public function show(Student $student): Response
     {
-        //
+
+        return inertia('student/show', ['student' => $student->load(['results'])]);
     }
 
     /**

@@ -31,7 +31,7 @@ export default function Results({ results }: { results: ResultType[] }) {
                     {results.map((r) => (
                         <TableRow key={r.id}>
                             <TableCell className="">
-                                <Link href={route('student.edit', r.student.id)} className="inline-block w-full px-5 py-1.5">
+                                <Link href={route('student.show', r.student.id)} className="inline-block w-full px-5 py-1.5">
                                     {r.student.name}
                                 </Link>
                             </TableCell>

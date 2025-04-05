@@ -14,27 +14,28 @@ Route::prefix('student')->name('student.')->group(function () {
     Route::get('/', [StudentController::class, 'index'])->name('index');
     Route::get('/create', [StudentController::class, 'create'])->name('create');
     Route::post('/create', [StudentController::class, 'store'])->name('store');
-    Route::get('/edit/{student}', [StudentController::class, 'edit'])->name('edit');
-    Route::patch('/edit/{student}', [StudentController::class, 'update'])->name('update');
-    Route::delete('/delete/{student}', [StudentController::class, 'destroy'])->name('delete');
+    Route::get('/{student}', [StudentController::class, 'show'])->name('show');
+    Route::get('/{student}/edit', [StudentController::class, 'edit'])->name('edit');
+    Route::patch('/{student}/edit', [StudentController::class, 'update'])->name('update');
+    Route::delete('/{student}/delete', [StudentController::class, 'destroy'])->name('delete');
 });
 
 Route::prefix('course')->name('course.')->group(function () {
     Route::get('/', [CourseController::class, 'index'])->name('index');
     Route::get('/create', [CourseController::class, 'create'])->name('create');
     Route::post('/create', [CourseController::class, 'store'])->name('store');
-    Route::get('/edit/{course}', [CourseController::class, 'edit'])->name('edit');
-    Route::patch('/edit/{course}', [CourseController::class, 'update'])->name('update');
-    Route::delete('/delete/{course}', [CourseController::class, 'destroy'])->name('delete');
+    Route::get('{course}/edit', [CourseController::class, 'edit'])->name('edit');
+    Route::patch('{course}/edit', [CourseController::class, 'update'])->name('update');
+    Route::delete('{course}/delete', [CourseController::class, 'destroy'])->name('delete');
 });
 
 Route::prefix('result')->name('result.')->group(function () {
     Route::get('/', [ResultController::class, 'index'])->name('index');
     Route::get('/create', [ResultController::class, 'create'])->name('create');
     Route::post('/create', [ResultController::class, 'store'])->name('store');
-    Route::get('/edit/{result}', [ResultController::class, 'edit'])->name('edit');
-    Route::patch('/edit/{result}', [ResultController::class, 'update'])->name('update');
-    Route::delete('/delete/{result}', [ResultController::class, 'destroy'])->name('delete');
+    Route::get('{result}/edit', [ResultController::class, 'edit'])->name('edit');
+    Route::patch('{result}/edit', [ResultController::class, 'update'])->name('update');
+    Route::delete('{result}/delete', [ResultController::class, 'destroy'])->name('delete');
 });
 
 Route::middleware(['auth', 'verified'])->group(function () {

@@ -56,6 +56,9 @@ class ResultController extends Controller
 
             $student = Student::find($validated['student']);
 
+            $course = Course::find($validated['course']);
+
+
             Result::create([
                 'score' => $validated['score'],
                 'student_id' => $validated['student'],
@@ -64,6 +67,10 @@ class ResultController extends Controller
 
             $student->update([
                 'average_score' => $student->results->avg('score')
+            ]);
+
+            $course->update([
+                'average_score' => $course->results->avg('score')
             ]);
         });
 
@@ -105,6 +112,7 @@ class ResultController extends Controller
             'score' => ['numeric', 'required'],
             'student' => ['required', 'exists:students,id'],
             'prevStudent' => ['required', 'exists:students,id'],
+            'prevCourse' => ['required', 'exists:courses,id'],
             'course' => ['required', 'exists:courses,id']
         ]);
 
@@ -114,6 +122,10 @@ class ResultController extends Controller
             $new_student = Student::find($validated['student']);
 
             $prev_student = Student::find($validated['prevStudent']);
+
+            $new_course = Course::find($validated['course']);
+
+            $prev_course = Course::find($validated['prevCourse']);
 
             $result->update([
                 'score' => $validated['score'],
@@ -127,6 +139,14 @@ class ResultController extends Controller
 
             $prev_student->update([
                 'average_score' => $prev_student->results->avg('score')
+            ]);
+
+            $new_course->update([
+                'average_score' => $new_course->results->avg('score')
+            ]);
+
+            $prev_course->update([
+                'average_score' => $prev_course->results->avg('score')
             ]);
         });
 
@@ -143,10 +163,16 @@ class ResultController extends Controller
 
             $student = $result->student;
 
+            $course = $result->course;
+
             $result->delete();
 
             $student->update([
                 'average_score' => $student->results->avg('score') ?? 0
+            ]);
+
+            $course->update([
+                'average_score' => $course->results->avg('score') ?? 0
             ]);
         });
 

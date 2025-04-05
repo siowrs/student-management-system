@@ -50,6 +50,7 @@ export default function ResultForm({
         transform((data) => ({
             ...data,
             prevStudent: result?.student.id,
+            prevCourse: result?.course.id,
         }));
 
         action == 'create' ? post(submitRoute) : patch(submitRoute);
