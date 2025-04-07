@@ -138,11 +138,6 @@ export default function ResultForm({
                         {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
                         {action == 'create' ? 'Create' : 'Update'} Result
                     </Button>
-
-                    <Button variant="outline" onClick={() => window.history.back()}>
-                        {/* <Link href=''></Link>
-                        Back */}
-                    </Button>
                 </div>
             </div>
         </form>
