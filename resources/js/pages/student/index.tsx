@@ -12,7 +12,7 @@ export type StudentType = {
 };
 
 export default function Students({ students }: { students: StudentType[] }) {
-    const keysToExport: (keyof StudentType)[] = ['name', 'email'];
+    const keysToExport: (keyof StudentType)[] = ['name', 'email', 'average_score'];
 
     const headers = keysToExport.map((key) => ({
         label: key.charAt(0).toUpperCase() + key.slice(1),
@@ -54,7 +54,7 @@ export default function Students({ students }: { students: StudentType[] }) {
                                 <TableRow key={s.id}>
                                     <TableCell className="font-medium">
                                         {' '}
-                                        <Link href={route('student.show', s.id)} className="inline-block w-full px-5 py-1.5">
+                                        <Link href={route('student.show', s.id)} className="inline-block w-full py-1.5">
                                             {s.name}
                                         </Link>
                                     </TableCell>
